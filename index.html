@@ -49,7 +49,7 @@
     <!-- /.preloader -->
     <div class="page-wrapper">
         <div class="home-main-header">
-            <div class="topbar">
+            <!-- <div class="topbar">
                 <div class="container-fluid">
                     <div class="topbar__inner">
                         <ul class="list-unstyled topbar__info">
@@ -71,7 +71,7 @@
                                 </span>
                                 <a href="https://www.google.com/maps">main road kakinada -533002</a>
                             </li>
-                        </ul><!-- /.list-unstyled topbar__info -->
+                        </ul>
                         <div class="topbar__social social-links">
                             <a href="https://facebook.com">
                                 <i class="fab fa-facebook-f" aria-hidden="true"></i>
@@ -89,19 +89,130 @@
                                 <i class="fab fa-youtube" aria-hidden="true"></i>
                                 <span class="sr-only">Youtube</span>
                             </a>
-                        </div><!-- /.topbar__social social-links -->
-                    </div><!-- /.topbar__inner -->
-                </div><!-- /.container-fluid -->
-            </div><!-- /.topbar -->
+                        </div>
+                    </div>
+                </div>
+            </div> -->
 
-            <header class="main-header sticky-header sticky-header--normal">
+            <!-- diiferent navbar  -->
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <div class="student" id="student">👨‍🎓</div>
+                    <div class="thread" id="thread"></div>
+
+
+                    <a class="navbar-brand pt-4" id="logo">
+                        <img src="/assets/images/logo-dark.png" alt="" class="img-fluid"
+                            style="width: 200px; height: 100px ;">
+                    </a>
+                    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                        <ul class="navbar-nav pt-4" id="menu">
+                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                            <li class="nav-item"><a class="nav-link" href="courses.html">Our Courses</a></li>
+                            <li class="nav-item"><a class="nav-link" href="instructors.html">Our Staff</a></li>
+                            <li class="nav-item"><a class="nav-link" href="courses.html">Classess</a></li>
+                            <li class="nav-item"><a class="nav-link" href="testimonials.html">Testimonials</a></li>
+                            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                            <!-- <button class="btn-31">
+                                <span class="text-container">
+                                    <span class="text">Button</span>
+                                </span>
+                            </button> -->
+
+                        </ul>
+                    </div>
+
+
+                </div>
+            </nav>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script>
+                const logo = document.getElementById("logo");
+                const menu = document.getElementById("menu");
+                const navbarNav = document.getElementById("navbarNav");
+                const thread = document.getElementById("thread");
+                const student = document.getElementById("student");
+
+                function positionThread() {
+                    const logoRect = logo.getBoundingClientRect();
+                    const studentRect = student.getBoundingClientRect();
+                    const startX = studentRect.left + studentRect.width / 2;
+                    const startY = studentRect.top + studentRect.height / 2;
+                    const endX = logoRect.left;
+                    const endY = logoRect.top + logoRect.height / 2;
+                    const dx = endX - startX;
+                    const dy = endY - startY;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                    thread.style.width = distance + "px";
+                    thread.style.top = startY + "px";
+                    thread.style.left = startX + "px";
+                    thread.style.transform = `rotate(${angle}deg)`;
+                }
+
+                // Desktop logo click toggle
+                let logoMoved = false;
+
+                logo.addEventListener("click", () => {
+                    if (window.innerWidth >= 992) {
+                        if (!logoMoved) {
+                            student.style.opacity = 1;
+                            thread.style.opacity = 1;
+                            logo.classList.add("logo-left");
+                            menu.classList.add("menu-right");
+                            menu.classList.add("show-items");
+                            menu.classList.remove("hide-items");
+                            let anim = setInterval(positionThread, 16);
+                            setTimeout(() => {
+                                clearInterval(anim);
+                                student.style.opacity = 0;
+                                thread.style.opacity = 0;
+                            }, 1000);
+                            logoMoved = true;
+                        } else {
+                            // remove logo-left & hide menu items smoothly
+                            logo.classList.remove("logo-left");
+                            menu.classList.remove("menu-right");
+                            menu.classList.remove("show-items");
+                            menu.classList.add("hide-items");
+                            logoMoved = false;
+                        }
+                    }
+                });
+
+                // Mobile: toggle menu items animation
+                navbarNav.addEventListener('shown.bs.collapse', () => {
+                    menu.classList.add("show-items");
+                    menu.classList.remove("hide-items");
+                });
+                navbarNav.addEventListener('hidden.bs.collapse', () => {
+                    menu.classList.remove("show-items");
+                    menu.classList.add("hide-items");
+                });
+
+                window.addEventListener("resize", () => {
+                    if (thread.style.opacity == 1) positionThread();
+                });
+            </script>
+
+            <!-- diierenr navbar end  -->
+
+
+            <!-- <header class="main-header sticky-header sticky-header--normal">
                 <div class="container-fluid">
                     <div class="main-header__inner">
                         <div class="main-header__logo logo-retina">
                             <a href="index.html">
                                 <img src="assets/images/logo-dark.png" alt="eduhive HTML" width="209">
                             </a>
-                        </div><!-- /.main-header__logo -->
+                        </div>
                         <div class="main-header__right">
                             <nav class="main-header__nav main-menu">
                                 <ul class="main-menu__list">
@@ -117,32 +228,7 @@
                                     </li>
                                     <li>
                                         <a href="instructors.html">Our Staff</a>
-                                        <!-- <ul>
-                                            <li><a href="instructors.html">Our Instructors 01</a></li>
-                                            <li><a href="instructors-2.html">Our Instructors 02</a></li>
-                                            <li><a href="instructors-carousel.html">Instructors Carousel 01</a></li>
-                                            <li><a href="instructors-carousel-2.html">Instructors Carousel 02</a></li>
-                                            <li><a href="become-instructor.html">Become Instructor</a></li>
-                                            <li><a href="instructor-details.html">Instructor Details</a></li>
-                                            <li><a href="testimonials-carousel.html">Testimonials Carousel 01</a></li>
-                                            <li><a href="testimonials-carousel-2.html">Testimonials Carousel 02</a></li>
-                                            <li><a href="events.html">Our Events</a></li>
-                                            <li><a href="events-carousel.html">Events Carousel</a></li>
-                                            <li><a href="event-details.html">Event Details</a></li>
-                                            <li><a href="pricing.html">Pricing Table</a></li>
-                                            <li>
-                                                <a href="gallery.html">Gallery</a>
-                                                <ul>
-                                                    <li><a href="gallery.html">Gallery masonry</a></li>
-                                                    <li><a href="gallery-filter.html">Gallery filter</a></li>
-                                                    <li><a href="gallery-grid.html">Gallery Grid</a></li>
-                                                    <li><a href="gallery-carousel.html">Gallery Carousel</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="faq.html">Our FAQ</a></li>
-                                            <li><a href="login.html">Log In</a></li>
-                                            <li><a href="404.html">404 Error</a></li>
-                                        </ul> -->
+                                       
                                     </li>
 
 
@@ -150,76 +236,6 @@
                                         <a href="courses.html">Classess</a>
                                     </li>
 
-                                    <!-- <li>
-                                        <a href="service.html">Services</a>
-                                    </li> -->
-
-                                    <!--  <li>
-                                        <a href="courses.html">courses</a>
-                                         <ul>
-                                            <li><a href="courses.html">our courses 01</a></li>
-                                            <li><a href="courses-2.html">our courses 02</a></li>
-                                            <li><a href="courses-carousel.html">courses Carousel 01</a></li>
-                                            <li><a href="courses-carousel-2.html">courses Carousel 02</a></li>
-                                            <li><a href="wordpress-development.html">Wordpress Development</a></li>
-                                            <li><a href="data-science.html">Data Science</a></li>
-                                            <li><a href="web-development.html">Web Development</a></li>
-                                            <li><a href="uiux-design.html">UI/UX Design</a></li>
-                                            <li><a href="graphics-design.html">Graphics Design</a></li>
-                                            <li><a href="digital-marketing.html">Digital Marketing</a></li>
-                                            <li><a href="search-engine-optimization.html">Search Engine Optimization</a></li>
-                                            <li><a href="apps-development.html">Apps Development</a></li>
-                                            <li><a href="web-design.html">Web Design</a></li>
-                                        </ul> 
-                                    </li>-->
-                                    <!-- <li class="dropdown">
-                                        <a href="#">Shop</a>
-                                        <ul>
-                                            <li class="dropdown">
-                                                <a href="#">Products</a>
-                                                <ul>
-                                                    <li><a href="products.html">No sidebar</a></li>
-                                                    <li><a href="products-left.html">Left sidebar</a></li>
-                                                    <li><a href="products-right.html">Right sidebar</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="products-carousel.html">Products carousel</a></li>
-                                            <li><a href="product-details.html">Product details</a></li>
-                                            <li><a href="cart.html">Cart</a></li>
-                                            <li><a href="checkout.html">Checkout</a></li>
-                                        </ul>
-                                    </li> -->
-                                    <!-- <li class="dropdown">
-                                        <a href="#">Blog</a>
-                                        <ul>
-                                            <li class="dropdown">
-                                                <a href="#">Blog grid</a>
-                                                <ul>
-                                                    <li><a href="blog-grid.html">No sidebar</a></li>
-                                                    <li><a href="blog-grid-left.html">Left sidebar</a></li>
-                                                    <li><a href="blog-grid-right.html">Right sidebar</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="dropdown">
-                                                <a href="#">Blog list</a>
-                                                <ul>
-                                                    <li><a href="blog-list.html">No sidebar</a></li>
-                                                    <li><a href="blog-list-left.html">Left sidebar</a></li>
-                                                    <li><a href="blog-list-right.html">Right sidebar</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="blog-carousel.html">Blog carousel 01</a></li>
-                                            <li><a href="blog-carousel-2.html">Blog carousel 02</a></li>
-                                            <li class="dropdown">
-                                                <a href="#">Blog details</a>
-                                                <ul>
-                                                    <li><a href="blog-details.html">No sidebar</a></li>
-                                                    <li><a href="blog-details-left.html">Left sidebar</a></li>
-                                                    <li><a href="blog-details-right.html">Right sidebar</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li> -->
                                     <li>
                                         <a href="contact.html">Testimonials</a>
                                     </li>
@@ -227,32 +243,24 @@
                                         <a href="contact.html">Contact</a>
                                     </li>
                                 </ul>
-                            </nav><!-- /.main-header__nav -->
+                            </nav>
                             <div class="mobile-nav__btn mobile-nav__toggler">
                                 <span></span>
                                 <span></span>
                                 <span></span>
-                            </div><!-- /.mobile-nav__toggler -->
-                            <!--  <a href="#" class="search-toggler main-header__search">
-                                <i class="icon-search" aria-hidden="true"></i>
-                                <span class="sr-only">Search</span>
-                            </a>
-                            /.search-toggler -->
-                            <!-- <a href="cart.html" class="main-header__cart">
-                                <i class="icon-cart" aria-hidden="true"></i>
-                                <span class="sr-only">Shopping Cart</span>
-                            </a> -->
-                            <!-- /.search-toggler -->
+                            </div>
+                           
+                           
                             <a href="contact.html" class="main-header__btn eduhive-btn eduhive-btn--border">
                                 <span>Apply now</span>
                                 <span class="eduhive-btn__icon">
                                     <span class="eduhive-btn__icon__inner"><i class="icon-right-arrow"></i></span>
                                 </span>
-                            </a><!-- /.main-header__btn eduhive-btn -->
-                        </div><!-- /.main-header__right -->
-                    </div><!-- /.main-header__inner -->
-                </div><!-- /.container-fluid -->
-            </header><!-- /.main-header -->
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header> -->
         </div>
 
         <section class="main-slider-one" id="home">
@@ -390,7 +398,8 @@
                                                 <span class="eduhive-btn__icon__inner"><i
                                                         class="icon-right-arrow"></i></span>
                                             </span>
-                                        </a><!-- /.eduhive-btn -->
+                                        </a>
+                                        <!-- /.eduhive-btn -->
                                     </div><!-- /.button -->
                                 </div><!-- /.main-slider-one__content -->
                             </div><!-- /.main-slider-one__col-content -->
@@ -472,7 +481,8 @@
                                         <img src="assets/images/service/quality.png" alt="" class="img-fluid">
                                     </span>
                                 </div><!-- /.course-category__card__icon-box -->
-                                <h4 class="course-category__card__title">  <a href="quality.html">Quality Education</a> </h4>
+                                <h4 class="course-category__card__title"> <a href="quality.html">Quality Education</a>
+                                </h4>
                                 <!-- /.course-category__card__title -->
                             </div><!-- /.course-category__card__content -->
                         </div><!-- /.course-category__card -->
@@ -492,7 +502,8 @@
                                         <img src="assets/images/service/sports.png" alt="" class="img-fluid">
                                     </span>
                                 </div><!-- /.course-category__card__icon-box -->
-                                <h4 class="course-category__card__title">   <a href="sports.html">Sports & Physical Education</a> </h4>
+                                <h4 class="course-category__card__title"> <a href="sports.html">Sports & Physical
+                                        Education</a> </h4>
                                 <!-- /.course-category__card__title -->
                             </div><!-- /.course-category__card__content -->
                         </div><!-- /.course-category__card -->
@@ -512,7 +523,8 @@
                                         <img src="assets/images/service/student.png" alt="" class="img-fluid">
                                     </span>
                                 </div><!-- /.course-category__card__icon-box -->
-                                <h4 class="course-category__card__title">   <a href="student_counseling_guidance.html">Student Counseling & Guidance</a></h4>
+                                <h4 class="course-category__card__title"> <a
+                                        href="student_counseling_guidance.html">Student Counseling & Guidance</a></h4>
                                 <!-- /.course-category__card__title -->
                             </div><!-- /.course-category__card__content -->
                         </div><!-- /.course-category__card -->
@@ -532,7 +544,8 @@
                                         <img src="assets/images/service/8.png" alt="" class="img-fluid">
                                     </span>
                                 </div><!-- /.course-category__card__icon-box -->
-                                <h4 class="course-category__card__title">  <a href="smart_classrooms.html">Smart Classrooms & E-Learning</a>  </h4>
+                                <h4 class="course-category__card__title"> <a href="smart_classrooms.html">Smart
+                                        Classrooms & E-Learning</a> </h4>
                                 <!-- /.course-category__card__title -->
                             </div><!-- /.course-category__card__content -->
                         </div><!-- /.course-category__card -->
@@ -2377,7 +2390,7 @@
     </div><!-- /.page-wrapper -->
 
     <div class="mobile-nav__wrapper">
-        <div class="mobile-nav__overlay mobile-nav__toggler"></div><!-- /.mobile-nav__overlay -->
+        <div class="mobile-nav__overlay mobile-nav__toggler"></div>
         <div class="mobile-nav__content">
             <span class="mobile-nav__close mobile-nav__toggler"><i class="icon-close"></i></span>
             <div class="logo-box logo-retina">
@@ -2385,7 +2398,7 @@
                     <img src="assets/images/logo-light.png" width="209" alt="" />
                 </a>
             </div><!-- /.logo-box -->
-            <div class="mobile-nav__container"></div><!-- /.mobile-nav__container -->
+            <div class="mobile-nav__container"></div>
             <ul class="mobile-nav__contact list-unstyled">
                 <li>
                     <span class="mobile-nav__contact__icon"><i class="fa fa-envelope"></i></span>
